@@ -1,15 +1,21 @@
-import chalk from 'chalk';
+const express = require("express");
+const debug = require("debug")("app");
+const morgan = require("morgan");
+const path = require("path");
 
-
-const express = require('express');
-const chalk = require('chalk')
 const app = express();
 const port = 3000;
 
-app.get("/", (req,res) =>{
-    res.send('Hello');
-})
+app.use(morgan("combined"));
+app.use(express.static(path.join(__dirname, "/public/")));
 
-app.listen(port, ()=>{
-    console.log(chalk.blue('Hello world!'));
-})
+app.get("/", (req, res) => {
+
+  res.send("Hello born"); // แสดงหน้าจอ
+  
+});
+
+app.listen(port, () => {
+  console.log("listening on port" + port); // with console.log
+  debug("listening on port" + port); // with debug
+});
